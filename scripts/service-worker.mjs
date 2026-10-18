@@ -1,7 +1,8 @@
 import {readdir,readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const assets=(await readdir('dist/assets')).map(x=>'assets/'+x);
-const files=['index.html','icon.svg','manifest.webmanifest',...assets];
+const illustrations=(await readdir('dist/exercises')).filter(x=>x.endsWith('.svg')).map(x=>'exercises/'+x);
+const files=['index.html','icon.svg','manifest.webmanifest',...assets,...illustrations];
 const hash=createHash('sha256');for(const f of files)hash.update(await readFile('dist/'+f));
 const version='sport-'+hash.digest('hex').slice(0,12);
 await writeFile('dist/sw.js',`const CACHE=${JSON.stringify(version)};const FILES=${JSON.stringify(files.map(f=>'/Sport/'+f))};
