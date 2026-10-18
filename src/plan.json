@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "source": "Trainingsplan_Montag_bis_Sonntag_Gesamtuebersicht.pdf (10 Seiten)",
+  "notes": [
+    "Alle Übungen mit 2 Arbeitssätzen; Aufwärmsätze zählen nicht.",
+    "Kurzhantelgewichte pro Hantel, Maschinengewichte laut Anzeige, einseitige Übungen pro Seite.",
+    "Tagesziele sind Planwerte und dürfen nicht als tatsächlich erledigte Aktivitäten dargestellt werden.",
+    "Trainingsdaten nur protokollieren, wenn vom Nutzer angegeben; unbekannte Werte bleiben null.",
+    "Gerätebilder der Quelle sind in den Trainingskarten als Rasterbilder eingebettet, nicht als separate hochauflösende Fotos.",
+    "Ein persönlicher Trainingsverlauf ist nicht Bestandteil dieses öffentlichen Plan-Seeds."
+  ],
+  "weeklyPlan": {
+    "startOfWeek": "monday",
+    "plannedTrainingDays": 5,
+    "plannedRestDays": 2,
+    "plannedWorkingSets": 66,
+    "plannedActivityTargets": {
+      "dailySteps": 10000,
+      "dailyRunningKm": 3,
+      "dailyBasketballMinutes": 60,
+      "strengthDayWarmupMinutes": 10,
+      "restDaySleepHours": 8
+    },
+    "warmup": [
+      "Resistance-Band",
+      "Hängen",
+      "Handgelenke",
+      "tiefe Hocke",
+      "Beinschwingen",
+      "zügiges Gehen"
+    ],
+    "plannedWorkingSetsByPrimaryMuscle": {
+      "Brust": 8,
+      "Rücken inkl. Trapez": 10,
+      "Bizeps": 6,
+      "Trizeps": 6,
+      "Quadrizeps": 8,
+      "Beinbeuger": 8,
+      "Adduktoren": 4,
+      "Waden": 4,
+      "Bauch": 4,
+      "Schultern": 8
+    }
+  },
+  "exerciseCatalog": [
+    {
+      "id": "incline_smith_press",
+      "name": "Schrägbankdrücken",
+      "equipment": "Smith-Maschine",
+      "primaryMuscle": "Brust"
+    },
+    {
+      "id": "pec_deck",
+      "name": "Butterfly",
+      "equipment": "Pec-Deck-Maschine",
+      "primaryMuscle": "Brust"
+    },
+    {
+      "id": "seated_lateral_raise",
+      "name": "Seitheben sitzend",
+      "equipment": "Kurzhanteln",
+      "primaryMuscle": "Schultern"
+    },
+    {
+      "id": "seated_shoulder_press",
+      "name": "Schulterdrücken sitzend",
+      "equipment": "Kurzhanteln",
+      "primaryMuscle": "Schultern"
+    },
+    {
+      "id": "rope_pushdown",
+      "name": "Pushdowns am Seil",
+      "equipment": "Kabelturm",
+      "primaryMuscle": "Trizeps"
+    },
+    {
+      "id": "single_arm_katana",
+      "name": "Einarmige Katanas",
+      "equipment": "Kabelturm",
+      "primaryMuscle": "Trizeps",
+      "unilateral": true
+    },
+    {
+      "id": "pullover_machine",
+      "name": "Pullover",
+      "equipment": "Pullover-Maschine",
+      "primaryMuscle": "Rücken inkl. Trapez"
+    },
+    {
+      "id": "close_grip_row",
+      "name": "Enges Rudern",
+      "equipment": "Rudermaschine",
+      "primaryMuscle": "Rücken inkl. Trapez"
+    },
+    {
+      "id": "heavy_shrugs",
+      "name": "Schwere Shrugs",
+      "equipment": "Kurzhanteln",
+      "primaryMuscle": "Rücken inkl. Trapez"
+    },
+    {
+      "id": "rope_hammer_curls",
+      "name": "Rope Hammer Curls",
+      "equipment": "Kabelturm",
+      "primaryMuscle": "Bizeps"
+    },
+    {
+      "id": "single_arm_bayesian_curls",
+      "name": "Einarmige Bayesian Curls",
+      "equipment": "Kabelturm",
+      "primaryMuscle": "Bizeps",
+      "unilateral": true
+    },
+    {
+      "id": "single_arm_rear_delt_row",
+      "name": "Einarmiges Rear-Delt-Rudern",
+      "equipment": "Kurzhanteln",
+      "primaryMuscle": "Schultern",
+      "unilateral": true
+    },
+    {
+      "id": "leg_press",
+      "name": "Beinpresse",
+      "equipment": "Beinpresse",
+      "primaryMuscle": "Quadrizeps"
+    },
+    {
+      "id": "leg_extension",
+      "name": "Beinstrecken",
+      "equipment": "Beinstrecker-Maschine",
+      "primaryMuscle": "Quadrizeps"
+    },
+    {
+      "id": "romanian_deadlift",
+      "name": "Rumänisches Kreuzheben",
+      "equipment": "Langhantel",
+      "primaryMuscle": "Beinbeuger"
+    },
+    {
+      "id": "lying_leg_curl",
+      "name": "Liegende Beinbeuger-Curls",
+      "equipment": "Beinbeuger-Maschine",
+      "primaryMuscle": "Beinbeuger"
+    },
+    {
+      "id": "single_leg_adduction",
+      "name": "Einbeinige Adduktion",
+      "equipment": "Kabelturm + Fußmanschette",
+      "primaryMuscle": "Adduktoren",
+      "unilateral": true
+    },
+    {
+      "id": "calf_raise_leg_press",
+      "name": "Wadenheben",
+      "equipment": "Beinpresse",
+      "primaryMuscle": "Waden"
+    },
+    {
+      "id": "cable_crunches",
+      "name": "Kabel-Crunches",
+      "equipment": "Kabelturm",
+      "primaryMuscle": "Bauch"
+    },
+    {
+      "id": "wide_grip_row",
+      "name": "Breites Rudern",
+      "equipment": "Rudermaschine",
+      "primaryMuscle": "Rücken inkl. Trapez"
+    },
+    {
+      "id": "alternating_hammer_curls",
+      "name": "Hammer-/Bizeps-Curls im Wechsel",
+      "equipment": "Kurzhanteln",
+      "primaryMuscle": "Bizeps"
+    }
+  ],
+  "weekDays": [
+    {
+      "weekday": 1,
+      "name": "Montag",
+      "type": "Push",
+      "exerciseIds": [
+        "incline_smith_press",
+        "pec_deck",
+        "seated_lateral_raise",
+        "seated_shoulder_press",
+        "rope_pushdown",
+        "single_arm_katana"
+      ]
+    },
+    {
+      "weekday": 2,
+      "name": "Dienstag",
+      "type": "Pull",
+      "exerciseIds": [
+        "pullover_machine",
+        "close_grip_row",
+        "heavy_shrugs",
+        "rope_hammer_curls",
+        "single_arm_bayesian_curls",
+        "single_arm_rear_delt_row"
+      ]
+    },
+    {
+      "weekday": 3,
+      "name": "Mittwoch",
+      "type": "Legs",
+      "exerciseIds": [
+        "leg_press",
+        "leg_extension",
+        "romanian_deadlift",
+        "lying_leg_curl",
+        "single_leg_adduction",
+        "calf_raise_leg_press",
+        "cable_crunches"
+      ]
+    },
+    {
+      "weekday": 4,
+      "name": "Donnerstag",
+      "type": "Rest",
+      "exerciseIds": [],
+      "restNote": "Regeneration; keine schweren Arbeitssätze nachholen; leichte Mobilität/Spaziergang/Dehnen optional. Lauf und Basketball nach Tagesform."
+    },
+    {
+      "weekday": 5,
+      "name": "Freitag",
+      "type": "Upper",
+      "exerciseIds": [
+        "incline_smith_press",
+        "pec_deck",
+        "pullover_machine",
+        "wide_grip_row",
+        "seated_lateral_raise",
+        "rope_pushdown",
+        "alternating_hammer_curls"
+      ]
+    },
+    {
+      "weekday": 6,
+      "name": "Samstag",
+      "type": "Lower",
+      "exerciseIds": [
+        "leg_press",
+        "leg_extension",
+        "romanian_deadlift",
+        "lying_leg_curl",
+        "single_leg_adduction",
+        "calf_raise_leg_press",
+        "cable_crunches"
+      ]
+    },
+    {
+      "weekday": 7,
+      "name": "Sonntag",
+      "type": "Rest",
+      "exerciseIds": [],
+      "restNote": "Regeneration; keine schweren Arbeitssätze nachholen; leichte Mobilität/Spaziergang/Dehnen optional. Lauf und Basketball nach Tagesform."
+    }
+  ]
+}
