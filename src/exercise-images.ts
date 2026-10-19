@@ -10,6 +10,7 @@ export const exerciseImages:Record<string,string>={
  calf_raise_leg_press:'leg-press',cable_crunches:'cable-tower',wide_grip_row:'row-machine',
  alternating_hammer_curls:'dumbbells-bench'
 };
-export function standardImage(id:string,base:string){return `${base}exercises/${exerciseImages[id]}.svg`}
+export function standardImage(id:string,base:string){return `${base}exercises/${exerciseImages[id]??id}.svg`}
 
-export function imageSource(id:string,base:string,photo:string|undefined,failed:string[]){const standard=standardImage(id,base);return photo&&!failed.includes(photo)?photo:!failed.includes(standard)?standard:null}
+export function imageSource(id:string,base:string,photo:string|undefined,failed:string[]){const standard=standardImage(id,base);return photo&&!failed.includes(photo)?photo:(exerciseImages[id]||Object.values(exerciseImages).includes(id))&&!failed.includes(standard)?standard:null}
+
