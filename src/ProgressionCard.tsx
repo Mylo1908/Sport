@@ -1,0 +1,3 @@
+import React,{useState}from'react';
+import type{Recommendation}from'./analytics';
+export function ProgressionCard({suggestion,onApply}:{suggestion:Recommendation;onApply?:(weight:number)=>void}){const[ignored,setIgnored]=useState(false);if(ignored)return <small>Progressionshinweis für diese Ansicht ignoriert.</small>;return <section className="progression-card"><strong>{suggestion.text}</strong><p>{suggestion.reason}</p><small>Optionale, regelbasierte Trainingshilfe. Du entscheidest; keine Steigerungsgarantie.</small><div className="actions">{suggestion.weight!==undefined&&onApply&&<button onClick={()=>onApply(suggestion.weight!)}>Vorschlag für offene Arbeitssätze übernehmen</button>}<button onClick={()=>setIgnored(true)}>Ignorieren</button></div></section>}
