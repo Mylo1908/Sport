@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -29,5 +30,21 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+          name: sport-pages-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Wait for Pages artifact metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SPORT_ARTIFACT: sport-pages-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          for attempt in 1 2 3 4 5; do
+            count=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" --jq "[.artifacts[] | select(.name == \"$SPORT_ARTIFACT\")] | length")
+            if [ "$count" -eq 1 ]; then exit 0; fi
+            sleep 3
+          done
+          echo "Pages artifact metadata did not become available."
+          exit 1
       - uses: actions/deploy-pages@v4
         id: deployment
+        with:
+          artifact_name: sport-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
