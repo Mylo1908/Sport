@@ -56,3 +56,16 @@ Neue Einheiten erhalten gültige vergangene Satzwerte automatisch als **unbestä
 Keine Datenbank-/Backupänderung. `src/mobile-workout.ts` kapselt neue Vorwert- und Zahlenlogik; `src/MobileSetCard.tsx` die Darstellung. Bestehende Analytics, Pläne, Fotos und Timer bleiben erhalten. Automatisierte Prüfungen decken passende/falsche/fehlende Vorwerte, Warm-up- und Satzpositionen, variable Satzzahlen, unveränderte Entwürfe, Dezimal-/Ganzzahlbedienung, Bestätigung/Korrektur, Timer, Wiederöffnen und Backup ab.
 
 Die CSS-Abstände/Spalten sind für 320–390 px ausgelegt. Ein tatsächlicher Browserlauf der lokalen schmalen Testansichten konnte nicht ausgeführt werden: der separate Cloud-Browser erreicht den lokalen Entwicklungsserver nicht (`ERR_CONNECTION_REFUSED`). Reale iPhone-, Tastatur-/Sperrbildschirm- und 320/390-px-Browsertests werden deshalb nicht als bestanden behauptet.
+
+## Sport 1.3.2 – Tagesjournal und mobile Eingaben
+„Mein Tag“ ist über das Dashboard und das aktive Training erreichbar. Die fünf Hauptnavigationseinträge bleiben erhalten. Tagesdaten werden pro lokalem Datum getrennt von Trainingseinheiten im bestehenden IndexedDB-Store settings unter daily-journal-v1 gespeichert; Datenbankversion und bestehende Stores bleiben unverändert. Backupformat 3 enthält das Journal, Formate 1 und 2 bleiben importierbar. Bei Importkonflikten bleiben vorhandene Journaltage vollständig erhalten; die Vorschau weist darauf hin.
+
+Die Codeanalyse reproduziert leere Übungskarten bei einem aktiven Entwurf ohne Sätze (z. B. Ruhetag). Der bestehende Entwurf wird beim Starten eines anderen Tages bewusst fortgesetzt. Eine Erklärung und ausdrückliches Hinzufügen eines Trainingstages verhindern eine stille leere Ansicht. Das beweist nicht, dass dieser Fall die Ursache auf dem Gerät des Nutzers war. Unbekannte Übungs-IDs zeigen nun Diagnoseangaben und erhalten ihre Sätze. Der Service Worker verwendet inhaltsabhängige Cacheversionen; ein wartendes Update wird nach Schließen aller Sport-Tabs aktiv.
+
+### Manuelle mobile Abnahme
+Echte iOS-/Android-Geräte sind in der Arbeitsumgebung nicht verfügbar; lokale Browser-Automation ebenfalls nicht installiert. Build- und Datentests ersetzen diese Prüfung nicht.
+1. Bei 320/375/390/430 px Push/Pull/Legs/Upper/Lower öffnen, alle Karten und Sätze bis zum Ende erreichen; Ruhetag-Entwurf und eigene Übung prüfen.
+2. iOS Safari / Android Chrome: Schritte, Gewicht (78,5), Laufstrecke und Schlaf fokussieren, Tastatur schließen. Kein Fokuszoom; manuelles Pinch-Zoom weiterhin möglich.
+3. Satzwerte eingeben, bestätigen, pausieren, sperren, Browser schließen/öffnen und fortsetzen; Journal öffnen und zurückkehren.
+4. Journal an Ruhetag erfassen, mehrere Aktivitäten ergänzen, Datum wechseln und zurückkehren, neu laden. Kalenderpunkt und unveränderte Werte prüfen.
+5. Backup exportieren, auf separatem Testprofil importieren; Journal, Trainingshistorie, Fotos, Timer und Plan vergleichen. Import desselben Backups erzeugt keine doppelten Tage.

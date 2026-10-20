@@ -15,3 +15,23 @@
 @media(min-width:391px) and (max-width:760px){.mobile-number-row>button{min-height:56px}.mobile-set{padding:20px 16px}.mobile-confirm{min-height:56px}}
 @media(max-width:760px){.mobile-workout-card .equipment{flex-shrink:0}.mobile-workout-card .exercise-top>div:last-child{min-width:0}.mobile-set .field select{width:100%}.mobile-workout-card .photo input{max-width:100%;font-size:12px}.mobile-set,.mobile-set button,.mobile-value input{-webkit-tap-highlight-color:transparent}.mobile-set input{scroll-margin-block:130px}.mobile-workout-card .mobile-confirm{position:relative;z-index:1}}
 .mobile-value input.long-number{font-size:20px!important}
+
+/* Mobile focus must retain an effective font size >=16px; pinch zoom stays enabled. */
+@media(max-width:760px){
+ input,select,textarea{font-size:16px!important;scroll-margin-block:110px;max-width:100%;box-sizing:border-box}
+ input:not([type=checkbox]):not([type=radio]),select{min-height:48px}
+ .mobile-value input{font-size:28px!important}
+ .mobile-value.long-number input{font-size:20px!important}
+ main{padding-bottom:140px}
+ .form-row{min-width:0}
+ .field{min-width:0}
+}
+.journal-calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;max-width:520px;margin:18px auto}
+.journal-calendar button{position:relative;min-width:0;min-height:44px;padding:8px 2px}
+.journal-calendar small{text-align:center}
+.journal-calendar i{display:block;font-size:8px;color:var(--accent,#bbff32)}
+.journal-activity{border-top:1px solid #354039;padding:18px 0}
+.journal-chart{display:block;width:100%;height:auto;max-height:220px;background:#090d17}
+.journal-chart circle{fill:#c1ff38}
+.journal-table{overflow:auto}
+.journal-table table{width:100%;text-align:left}
