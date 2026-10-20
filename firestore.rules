@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function owner(uid) {
+   return request.auth != null && request.auth.uid == uid
+     && uid == 'REPLACE_OWNER_UID';
+  }
+  match /users/{uid}/{group}/{id} {
+   allow read: if owner(uid) && group in ['sessions','journal','plans','exercises','drafts','settings'];
+   allow create: if owner(uid) && group in ['sessions','journal','plans','exercises','drafts','settings']
+      && request.resource.data.keys().hasOnly(['revision','payload','updatedAt'])
+      && request.resource.data.revision == 1
+      && request.resource.data.payload is string && request.resource.data.payload.size() <= 250000
+      && request.resource.data.updatedAt == request.time;
+   allow update: if owner(uid) && group in ['sessions','journal','plans','exercises','drafts','settings']
+      && request.resource.data.keys().hasOnly(['revision','payload','updatedAt'])
+      && request.resource.data.revision is int
+      && request.resource.data.revision == resource.data.revision + 1
+      && request.resource.data.payload is string && request.resource.data.payload.size() <= 250000
+      && request.resource.data.updatedAt == request.time;
+   allow delete: if false;
+  }
+  match /users/{uid}/admin/{id} {
+   allow get: if owner(uid) && request.auth.uid == 'REPLACE_ADMIN_UID' && id == 'access';
+   allow list,write: if false;
+  }
+  match /{document=**} { allow read,write: if false; }
+ }
+}

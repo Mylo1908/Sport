@@ -4,3 +4,8 @@ private-input/
 *privat*
 *.pdf
 .env*
+
+.firebase/
+*-debug.log
+firestore-debug.log
+ui-debug.log

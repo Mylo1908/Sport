@@ -35,3 +35,9 @@
 .journal-chart circle{fill:#c1ff38}
 .journal-table{overflow:auto}
 .journal-table table{width:100%;text-align:left}
+.account-gate{margin:0 auto;max-width:720px;padding:24px 16px 100px}
+.account-gate input,.cloud-panel input,.cloud-panel select{font-size:16px;min-height:48px}
+.account-gate .field,.cloud-panel .field{margin:12px 0}
+.cloud-panel[hidden]{display:none}
+.cloud-conflict{border:1px solid #718d30;border-radius:16px;padding:16px;margin:12px 0}
+.cloud-conflict pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto}
