@@ -53,3 +53,10 @@ export function diffRecords(local:Record<string,string>,base:Records,remote:Reco
  }
  return {pull,push,conflicts}
 }
+
+/** Import fills unknown optional profile fields; explicit existing values always win. */
+export function mergeProfile(existing:Profile|undefined,incoming:Profile|undefined):Profile|undefined{
+ if(!existing)return incoming;
+ if(!incoming)return existing;
+ return Object.fromEntries(Object.entries(existing).map(([key,value])=>[key,value===null||value===''?incoming[key as keyof Profile]:value])) as Profile;
+}

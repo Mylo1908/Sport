@@ -1,6 +1,6 @@
 {
   "name": "sport",
-  "version": "1.0.0",
+  "version": "1.4.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,9 @@
     "build": "tsc --noEmit && vite build && node scripts/service-worker.mjs",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "preview": "vite preview",
-    "test:cloud": "firebase emulators:exec --only firestore,auth --project demo-sport \"node --experimental-strip-types --test tests/emulator/*.test.ts\""
+    "test:cloud": "firebase emulators:exec --only firestore,auth --project demo-sport \"node --experimental-strip-types --test tests/emulator/*.test.ts\"",
+    "test:browser:build": "vite build --mode browser-test && node scripts/browser-fixture.mjs && node scripts/service-worker.mjs dist-qa",
+    "test:browser": "npm run test:browser:build && playwright test"
   },
   "dependencies": {
     "firebase": "^13.0.0",
@@ -16,12 +18,17 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@firebase/rules-unit-testing": "^6.0.0",
+    "@playwright/test": "^1.64.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "fake-indexeddb": "6.2.6",
-    "firebase-tools": "^14.27.0",
+    "firebase-tools": "^15.34.0",
     "typescript": "7.0.2",
     "vite": "8.3.4"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "^1.14.6"
   }
 }

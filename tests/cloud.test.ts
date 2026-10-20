@@ -2,7 +2,7 @@ import {cloudError} from '../src/cloud.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import 'fake-indexeddb/auto';
-import {emptyMeta,recordsFromState,stateFromRecords,diffRecords,emptyProfile,validProfile,canonical} from '../src/cloud-model.ts';
+import {emptyMeta,recordsFromState,stateFromRecords,diffRecords,emptyProfile,validProfile,canonical,mergeProfile} from '../src/cloud-model.ts';
 import {emptyState,newSession,parseImport} from '../src/domain.ts';
 import {defaultPlan,defaultCatalog} from '../src/training-plan.ts';
 import {blankDay} from '../src/journal.ts';
@@ -35,3 +35,11 @@ test('Backup profiles remain optional and validated in formats 1–3',()=>{
 });
 
 test('Authentication errors distinguish credentials, configuration and connection without exposing secrets',()=>{assert.match(cloudError({code:'auth/invalid-credential',message:'secret'}),/nicht erkannt/);assert.match(cloudError({code:'auth/operation-not-allowed'}),/nicht aktiviert/);assert.match(cloudError({code:'auth/invalid-api-key'}),/Konfiguration/);assert.match(cloudError({code:'auth/network-request-failed'}),/nicht erreichbar/);assert.ok(!cloudError({code:'auth/invalid-credential',message:'secret'}).includes('secret'))});
+
+test('Backup restores optional profile fields into an empty account without overwriting existing values',()=>{
+ const incoming={...emptyProfile,displayName:'Synthetic',heightCm:178,stepGoal:5000};
+ assert.deepEqual(mergeProfile(undefined,incoming),incoming);
+ assert.deepEqual(mergeProfile(emptyProfile,incoming),incoming);
+ assert.deepEqual(mergeProfile({...emptyProfile,displayName:'Existing',heightCm:180},incoming),{...incoming,displayName:'Existing',heightCm:180});
+ assert.deepEqual(mergeProfile({...emptyProfile,stepGoal:0},incoming),{...incoming,stepGoal:0});
+});

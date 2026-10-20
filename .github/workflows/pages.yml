@@ -1,36 +1,65 @@
 name: Build, test and deploy Sport
 on:
   push:
-    branches: [main]
+    branches: [main, quality-audit-1.4.1]
+    paths-ignore: ['docs/**', 'ASSET_CREDITS.md', 'README.md']
   workflow_dispatch:
 permissions:
   contents: read
   actions: read
-  pages: write
-  id-token: write
+  pages: read
 concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
       - run: npm ci
       - run: npm test
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run test:cloud
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:browser
       - run: npm run build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sport-qa-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
       - uses: actions/configure-pages@v5
+        if: github.ref == 'refs/heads/main'
       - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
         with:
           path: dist
           name: sport-pages-${{ github.run_id }}-${{ github.run_attempt }}
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: verify
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    steps:
       - name: Wait for Pages artifact metadata
         env:
           GH_TOKEN: ${{ github.token }}

@@ -21,7 +21,7 @@
  input,select,textarea{font-size:16px!important;scroll-margin-block:110px;max-width:100%;box-sizing:border-box}
  input:not([type=checkbox]):not([type=radio]),select{min-height:48px}
  .mobile-value input{font-size:28px!important}
- .mobile-value.long-number input{font-size:20px!important}
+ .mobile-value input.long-number{font-size:20px!important}
  main{padding-bottom:140px}
  .form-row{min-width:0}
  .field{min-width:0}
@@ -41,3 +41,49 @@
 .cloud-panel[hidden]{display:none}
 .cloud-conflict{border:1px solid #718d30;border-radius:16px;padding:16px;margin:12px 0}
 .cloud-conflict pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto}
+
+/* Quality audit 1.4.1: preserve the existing palette and layout. */
+:root{line-height:1.5}
+main,section,article,header,nav,details{min-width:0}
+h1,h2,h3,p,small,b,button,summary,.save{overflow-wrap:anywhere}
+header{flex-wrap:wrap;gap:12px}.save{max-width:100%}
+.actions,.section-title{flex-wrap:wrap}
+.actions{align-items:center}
+.hero{align-items:center;padding:28px;gap:24px}
+.hero h1{font-size:clamp(28px,3.2vw,46px);letter-spacing:-1px;line-height:1.2}
+.hero-card{transform:none;max-width:none;box-shadow:none}
+.hero-card strong{font-size:clamp(28px,3vw,44px);letter-spacing:-1px}
+.hero-card>span{font-size:11px}
+.hero-card p{font-size:13px;margin:12px 0 0}
+.mobile-confirm{background:#086b39;border-color:#55bb7f;color:#fff}
+.mobile-confirm:hover{background:#08723d}
+.mobile-exercise-meta small,.mobile-workout-card .exercise-top small{font-size:12px;line-height:1.5}
+summary{cursor:pointer;min-height:44px;padding:10px 0}
+summary:focus-visible{outline:2px solid #67efad;outline-offset:3px}
+.skip-link{position:fixed;top:-100px;left:12px;z-index:100;background:#b5ef39;color:#10180a;padding:12px;border-radius:6px}
+.skip-link:focus{top:max(12px,env(safe-area-inset-top))}
+#content:focus{outline:none}
+.equipment-preview{display:block;width:100%;height:100%;padding:0;border:0;border-radius:0;background:#090d17}
+.equipment-preview:hover{background:#090d17}
+.equipment-dialog{width:min(680px,calc(100vw - 24px));max-height:calc(100dvh - 40px);padding:16px;border:1px solid #688743;border-radius:16px;background:#090d17;color:#eef5f2}
+.equipment-dialog::backdrop{background:#000c}
+.equipment .equipment-dialog img{width:100%;height:auto;max-height:70dvh;object-fit:contain}
+.equipment-dialog button{display:block;margin:12px 0 0 auto;min-width:100px}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.hero-card{max-width:none}}
+@media(max-width:760px){
+ main{padding-top:max(20px,env(safe-area-inset-top));padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+ .hero{padding:22px 18px}.hero h1{font-size:30px}.hero .primary{font-size:14px}
+ .hero p{font-size:13px}.hero .pill{font-size:10px}.hero-card{padding:18px}
+ .hero-card strong{font-size:32px}.hero-card>span{font-size:11px}.hero-card p{font-size:13px}
+ .section-title>button{font-size:12px}.metrics small{font-size:10px}
+ .metrics span,.metrics em{font-size:11px}.metrics{grid-template-columns:1fr}
+ .metrics article{padding:16px}.metrics b{margin:6px 0;font-size:30px}
+ nav button{font-size:10px;min-height:56px;min-width:0;line-height:1.3}
+ .days strong{font-size:11px}.days small{font-size:9px}.days button{min-width:0}
+ footer{font-size:10px;flex-wrap:wrap}.checks label{min-height:44px}
+ .checks input[type=checkbox]{width:22px;height:22px;min-height:22px;flex-shrink:0}
+ .mobile-workout-card .equipment{width:100px;height:80px}
+ .mobile-set,.mobile-set input{scroll-margin-bottom:130px}
+ .form-row>.field{flex-basis:180px}.analytics-filters .field{min-width:0;width:100%}
+ .mobile-value input.long-number{font-size:20px!important}
+}

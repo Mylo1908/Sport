@@ -1,10 +1,8 @@
 import React,{useState} from 'react';
-import {blankDay,parseDailyNumber,journalPoints,journalSummary,validDate,type Journal,type JournalDay} from './journal';
+import {NumberField} from './NumberField';
+import {blankDay,journalPoints,journalSummary,validDate,type Journal,type JournalDay} from './journal';
 import {localDate,weekStart,type Session} from './domain';
-function NumberField({label,value,max=1440,integer=false,onChange}:{label:string;value:number|null;max?:number;integer?:boolean;onChange:(n:number|null)=>void}){
- const [raw,setRaw]=useState<string|null>(null);const shown=raw??(value===null?'':String(value));const invalid=parseDailyNumber(shown,max,integer)===undefined;
- return <label className="field">{label}<input type="text" inputMode={integer?'numeric':'decimal'} value={shown} aria-invalid={invalid} placeholder="—" onChange={e=>{setRaw(e.target.value);const n=parseDailyNumber(e.target.value,max,integer);if(n!==undefined)onChange(n)}} onBlur={()=>{if(!invalid)setRaw(null)}}/>{invalid&&<small role="alert">Bitte {integer?'eine ganze Zahl':'eine Zahl (Komma möglich)'} zwischen 0 und {max} eingeben. Noch nicht gespeichert.</small>}</label>
-}
+
 function History({journal,field,title}:{journal:Journal;field:'steps'|'bodyWeightKg';title:string}){
  const points=journalPoints(journal,field);const visible=points.slice(-60);const max=Math.max(1,...visible.map(p=>p.value));
  return <section className="panel"><h2>{title}</h2><p>Nur erfasste Messwerte · letzte 60 Werte. Fehlende Tage bleiben Lücken; Punkte werden nicht verbunden.</p>{visible.length?<><svg className="journal-chart" viewBox="0 0 600 160" role="img" aria-label={title+' – Einzelmessungen ohne Verbindungslinien'}>{visible.map(p=>{const first=+new Date(visible[0].date+'T12:00:00');const span=Math.max(86400000,+new Date(visible.at(-1)!.date+'T12:00:00')-first);return <circle key={p.date} cx={20+(+new Date(p.date+'T12:00:00')-first)/span*560} cy={140-p.value/max*120} r="4"><title>{p.date}: {p.value}</title></circle>})}</svg><details><summary>Messwerte als Tabelle</summary><div className="journal-table"><table><thead><tr><th>Datum</th><th>{field==='steps'?'Schritte':'kg'}</th></tr></thead><tbody>{points.map(p=><tr key={p.date}><td>{p.date}</td><td>{p.value.toLocaleString('de-DE')}</td></tr>)}</tbody></table></div></details></>:<p>Noch keine Messwerte.</p>}</section>

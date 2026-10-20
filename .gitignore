@@ -9,3 +9,7 @@ private-input/
 *-debug.log
 firestore-debug.log
 ui-debug.log
+
+dist-qa/
+playwright-report/
+test-results/
