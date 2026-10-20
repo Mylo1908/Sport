@@ -1,7 +1,9 @@
 # Sport 1.4 – Freischaltung noch ausstehend
 
 ## Tatsächlicher Stand
-Die Firebase-Konsole ist erreichbar und im Google-Konto angemeldet. Beim ersten Projekt verlangt Firebase die Annahme seiner Nutzungsbedingungen. Diese wurden durch Work nicht akzeptiert. Es wurde kein Projekt erstellt, kein Tarif eingerichtet, kein Konto angelegt und keine Zahlung/Abrechnung aktiviert. Die bestehende Live-Version 1.3.2 bleibt deshalb erhalten.
+Projekt `sport-private` (Sport Private) ist im Spark-Tarif eingerichtet. Die kostenlose Standard-Firestore-Datenbank liegt in `europe-west3` (Frankfurt), erstellt im Produktionsmodus mit standardmäßig gesperrten Clientzugriffen. E-Mail/Passwort-Authentication ist aktiviert; mylo1908.github.io ist als autorisierte Domain gespeichert; die Web-App `Sport` ist registriert. Die öffentlichen Web-Konfigurationswerte sind im Code hinterlegt; Analytics/Storage werden durch die App nicht initialisiert. Keine Abrechnung und keine kostenpflichtigen Sicherungen aktiviert.
+
+Noch offen: Eigentümer-Account durch den Nutzer erstellen (Passwort ausschließlich selbst eingeben), UID festlegen, konkrete UID-Regeln veröffentlichen und produktiv prüfen.
 
 Der vorbereitete Code liegt im Entwicklungszweig; `src/firebase-config.ts` ist ausdrücklich deaktiviert. Die UID-Platzhalter in den Rules dürfen nicht produktiv verwendet werden. Vor Veröffentlichung alle nachstehenden Prüfpunkte erledigen.
 
