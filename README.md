@@ -70,7 +70,7 @@ Echte iOS-/Android-Geräte sind in der Arbeitsumgebung nicht verfügbar; lokale 
 4. Journal an Ruhetag erfassen, mehrere Aktivitäten ergänzen, Datum wechseln und zurückkehren, neu laden. Kalenderpunkt und unveränderte Werte prüfen.
 5. Backup exportieren, auf separatem Testprofil importieren; Journal, Trainingshistorie, Fotos, Timer und Plan vergleichen. Import desselben Backups erzeugt keine doppelten Tage.
 
-## Sport 1.4 – vorbereiteter Entwicklungsstand
-Cloud und Accounts sind noch deaktiviert. Die Freischaltung und ihre konkreten Voraussetzungen stehen in [CLOUD_SETUP.md](CLOUD_SETUP.md). Bestehende Live-Version und lokale Daten bleiben erhalten, bis Spark, Eigentümerkonto, Rules und echte Geräteabnahme geprüft sind.
+## Sport 1.4 – Private Accounts und Cloud
+Firebase Spark und die Datenbank in Frankfurt sind eingerichtet. Nur die festgelegte Eigentümer-UID darf Cloud-Daten lesen und schreiben; Regeln sind veröffentlicht und mit Eigentümer-, fremder und anonymer Identität geprüft. Der Login ist aktiviert. Die konkrete Abnahme und verbleibende Geräteschritte stehen in [CLOUD_SETUP.md](CLOUD_SETUP.md). Bestehende lokale Originaldaten bleiben bei der bestätigten Übernahme erhalten.
 
 Validierung: `npm test` (44 Regressionstests), `npm run test:cloud` (Auth-/Firestore-Emulator, zwei Testfälle mit autorisiertem, fremdem und anonymem Zugriff), `npm run build`. Tests verwenden ausschließlich synthetische Daten. Java 21 ist für den CI-Emulator vorgesehen. Echte Zwei-Geräte-Synchronisierung und ein produktiver Login wurden noch nicht geprüft.

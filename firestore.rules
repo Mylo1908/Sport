@@ -3,7 +3,7 @@ service cloud.firestore {
  match /databases/{database}/documents {
   function owner(uid) {
    return request.auth != null && request.auth.uid == uid
-     && uid == 'REPLACE_OWNER_UID';
+     && uid == 'tVziIqlWLEhjrRxdHqe2Dw4G2Ip2';
   }
   match /users/{uid}/{group}/{id} {
    allow read: if owner(uid) && group in ['sessions','journal','plans','exercises','drafts','settings'];
@@ -21,7 +21,7 @@ service cloud.firestore {
    allow delete: if false;
   }
   match /users/{uid}/admin/{id} {
-   allow get: if owner(uid) && request.auth.uid == 'REPLACE_ADMIN_UID' && id == 'access';
+   allow get: if owner(uid) && request.auth.uid == 'tVziIqlWLEhjrRxdHqe2Dw4G2Ip2' && id == 'access';
    allow list,write: if false;
   }
   match /{document=**} { allow read,write: if false; }

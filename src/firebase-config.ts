@@ -1,9 +1,9 @@
 // Public Firebase Web configuration; no passwords or service-account credentials.
-// Keep disabled until the owner UID and production access rules are verified.
+// Owner UID and production rules verified in Firebase console and emulator.
 export const cloudConfig={
- enabled:false,
- ownerUid:'',
- adminUid:'',
+ enabled:true,
+ ownerUid:'tVziIqlWLEhjrRxdHqe2Dw4G2Ip2',
+ adminUid:'tVziIqlWLEhjrRxdHqe2Dw4G2Ip2',
  firebase:{
   apiKey:'AIzaSyB-wf5QDZx2f88rO7qNnV_kiogcBbWjAW8',
   authDomain:'sport-private.firebaseapp.com',
