@@ -5,7 +5,7 @@ Projekt `sport-private` (Sport Private) ist im Spark-Tarif eingerichtet. Die kos
 
 Der Eigentümer-Account wurde vom Nutzer erstellt. Seine UID ist als einzige Eigentümer-/Admin-UID konfiguriert. Die konkreten Rules sind veröffentlicht; im produktiven Regelsimulator ist der Eigentümer-Adminzugriff erlaubt, während fremde UID und anonymer Zugriff abgelehnt werden. Zwei Auth-/Firestore-Emulatortests mit den konkreten Rules bestehen.
 
-Die Cloud-Konfiguration ist aktiviert. Echte Anmeldung, Zwei-Geräte-Abnahme und Übernahme privater Altdaten auf dem Originalgerät stehen noch aus. Die private Migration verlangt weiterhin die ausdrückliche Auswahl im angemeldeten Browser.
+Die Cloud-Konfiguration ist aktiviert. Der erste echte Anmeldeversuch wurde von Firebase abgelehnt; Ursache noch offen. Fehlermeldungen unterscheiden nun nicht erkannte Zugangsdaten, deaktivierte Anmeldung, ungültige Konfiguration und Verbindungsfehler anhand eines nicht geheimen Firebase-Fehlercodes. Erfolgreiche Anmeldung, Zwei-Geräte-Abnahme und Übernahme privater Altdaten auf dem Originalgerät stehen noch aus. Die private Migration verlangt weiterhin die ausdrückliche Auswahl im angemeldeten Browser.
 
 ## Einrichtung und Referenzschritte im Firebase-Konto
 1. Eigentümer akzeptiert ausdrücklich die Firebase-Nutzungsbedingungen in https://console.firebase.google.com/ und erstellt ein Projekt „Sport Private“. Google Analytics und Gemini/AI nicht aktivieren. Nur Spark; keinerlei Billing-Konto, Zahlungsmethode oder Blaze verknüpfen.

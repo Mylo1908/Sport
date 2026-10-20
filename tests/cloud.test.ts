@@ -1,3 +1,4 @@
+import {cloudError} from '../src/cloud.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import 'fake-indexeddb/auto';
@@ -32,3 +33,5 @@ test('Backup profiles remain optional and validated in formats 1–3',()=>{
  const s=fixture(),ids=s.catalog.map(e=>e.id);for(const schemaVersion of [1,2,3]){const data={app:'Sport',schemaVersion,...s};assert.deepEqual(parseImport(data,ids).profile,s.profile);assert.throws(()=>parseImport({...data,profile:{...s.profile,stepGoal:-1}},ids))}
  assert.ok(!validProfile({...emptyProfile,heightCm:999}));assert.ok(validProfile(emptyProfile));
 });
+
+test('Authentication errors distinguish credentials, configuration and connection without exposing secrets',()=>{assert.match(cloudError({code:'auth/invalid-credential',message:'secret'}),/nicht erkannt/);assert.match(cloudError({code:'auth/operation-not-allowed'}),/nicht aktiviert/);assert.match(cloudError({code:'auth/invalid-api-key'}),/Konfiguration/);assert.match(cloudError({code:'auth/network-request-failed'}),/nicht erreichbar/);assert.ok(!cloudError({code:'auth/invalid-credential',message:'secret'}).includes('secret'))});
