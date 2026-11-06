@@ -7,7 +7,7 @@ test.beforeEach(({page})=>{const errors:string[]=[];pageErrors.set(page,errors);
 test.afterEach(({page})=>expect(pageErrors.get(page),'Uncaught browser errors').toEqual([]));
 
 // All data belongs to the separate synthetic build, never to the live account.
-const tab=(page:Page,name:string)=>page.getByRole('navigation').getByRole('button',{name:name==='Einstellungen'?/Einstellungen/:name,exact:true}).click();
+const tab=(page:Page,name:string)=>page.getByRole('navigation').getByRole('button',{name:name==='Einstellungen'?/Einstellungen/:name==='Wochenplan'?/Wochenplan/:name,exact:true}).click();
 async function boot(page:Page){await page.goto('./');await expect(page.getByRole('heading',{name:'Trainingsübersicht',exact:true})).toBeVisible()}
 async function start(page:Page){await tab(page,'Mein Training');await page.locator('.days').getByRole('button',{name:/Mo/}).click();await page.getByRole('button',{name:/^Training starten/}).click();await expect(page.locator('.mobile-workout-card')).toHaveCount(6)}
 async function saved(page:Page){await expect(page.locator('.save')).not.toContainText('Speichert');await expect(page.locator('.alert')).toHaveCount(0)}
