@@ -2,6 +2,10 @@ import {test,expect,type Page,type TestInfo} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import {readFile} from 'node:fs/promises';
 
+const pageErrors=new WeakMap<Page,string[]>();
+test.beforeEach(({page})=>{const errors:string[]=[];pageErrors.set(page,errors);page.on('pageerror',error=>errors.push(error.message))});
+test.afterEach(({page})=>expect(pageErrors.get(page),'Uncaught browser errors').toEqual([]));
+
 // All data belongs to the separate synthetic build, never to the live account.
 const tab=(page:Page,name:string)=>page.getByRole('navigation').getByRole('button',{name,exact:true}).click();
 async function boot(page:Page){await page.goto('./');await expect(page.getByRole('heading',{name:'Trainingsübersicht',exact:true})).toBeVisible()}
@@ -34,7 +38,7 @@ test('Workout persists entered values, corrections, RIR, timer and offline resum
  await first.getByRole('button',{name:'Bearbeiten',exact:true}).first().click();await first.getByLabel('Wiederholungen · Satz 1 von 2',{exact:true}).fill('9');await first.getByRole('button',{name:/Korrektur speichern/}).click();
  await page.getByRole('button',{name:'Timer pausieren',exact:true}).click();await saved(page);await page.getByRole('button',{name:'Pausieren',exact:true}).click();await expect(page.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();
  await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
- await context.setOffline(true);await page.reload();await expect(page.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();
+ await context.setOffline(true);await page.waitForFunction(()=>!navigator.onLine);await page.reload();await expect(page.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();
  await page.getByRole('button',{name:/^Fortsetzen/}).click();await expect(page.locator('.compact-set').first()).toContainText('52,5 kg × 9');await expect(page.locator('.rest-timer').getByRole('button',{name:'Fortsetzen',exact:true})).toBeVisible();
  await page.locator('.rest-timer').getByRole('button',{name:'Fortsetzen',exact:true}).click();await page.locator('.rest-timer').getByRole('button',{name:'Überspringen',exact:true}).click();
  await context.setOffline(false);await page.getByLabel('Trainingsnotizen',{exact:true}).fill('Synthetic QA note');await saved(page);await page.getByRole('button',{name:/Training beenden/}).click();await page.getByRole('button',{name:'Bestätigen & speichern',exact:true}).click();
@@ -73,9 +77,10 @@ test('Cloud status is immediate offline, conflicts require a choice and both ver
 });
 
 test('One editing tab protects the draft; the other can resume after release',async({page,context})=>{
- await boot(page);await start(page);await page.getByLabel('Trainingsnotizen',{exact:true}).fill('Cross-tab synthetic draft');await saved(page);
+ await boot(page);await start(page);
  const second=await context.newPage();await second.goto('./');await expect(second.getByText(/bereits in einem anderen Tab/)).toBeVisible();await expect(second.locator('.mobile-workout-card')).toHaveCount(0);
- await page.close();await second.getByRole('button',{name:'Erneut prüfen',exact:true}).click();await expect(second.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();await second.getByRole('button',{name:/^Fortsetzen/}).click();await expect(second.getByLabel('Trainingsnotizen',{exact:true})).toHaveValue('Cross-tab synthetic draft');
+ await page.getByLabel('Trainingsnotizen',{exact:true}).fill('Cross-tab synthetic draft');await saved(page);
+ await page.close();await expect(second.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();await second.getByRole('button',{name:/^Fortsetzen/}).click();await expect(second.getByLabel('Trainingsnotizen',{exact:true})).toHaveValue('Cross-tab synthetic draft');
 });
 
 test('Illustration preview, own-photo priority, deletion and all eleven SVGs load',async({page})=>{
@@ -93,5 +98,5 @@ test('Anonymous admin stays locked, login fields are labelled and accessible',as
 
 test('Automated accessibility checks on core views and a narrow reflow equivalent to 200% zoom',async({page})=>{
  await page.setViewportSize({width:640,height:900});await boot(page);
- for(const name of ['Dashboard','Wochenplan','Verlauf & Statistik','Einstellungen']){await tab(page,name);const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']).analyze();expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})),name).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(641)}
+ for(const name of ['Dashboard','Wochenplan','Verlauf & Statistik','Einstellungen']){await tab(page,name);const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']).analyze();expect.soft(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})),name).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(641)}
 });

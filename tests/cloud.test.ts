@@ -2,7 +2,7 @@ import {cloudError} from '../src/cloud.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import 'fake-indexeddb/auto';
-import {emptyMeta,recordsFromState,stateFromRecords,diffRecords,emptyProfile,validProfile,canonical,mergeProfile} from '../src/cloud-model.ts';
+import {emptyMeta,recordsFromState,stateFromRecords,diffRecords,emptyProfile,validProfile,canonical,mergeProfile,formatPayload} from '../src/cloud-model.ts';
 import {emptyState,newSession,parseImport} from '../src/domain.ts';
 import {defaultPlan,defaultCatalog} from '../src/training-plan.ts';
 import {blankDay} from '../src/journal.ts';
@@ -42,4 +42,9 @@ test('Backup restores optional profile fields into an empty account without over
  assert.deepEqual(mergeProfile(emptyProfile,incoming),incoming);
  assert.deepEqual(mergeProfile({...emptyProfile,displayName:'Existing',heightCm:180},incoming),{...incoming,displayName:'Existing',heightCm:180});
  assert.deepEqual(mergeProfile({...emptyProfile,stepGoal:0},incoming),{...incoming,stepGoal:0});
+});
+
+test('A damaged remote payload remains readable without breaking the conflict comparison',()=>{
+ assert.equal(formatPayload('{broken'),'Ungültiges JSON · Rohtext:\n{broken');
+ assert.equal(formatPayload('null'),'null');
 });

@@ -60,3 +60,8 @@ export function mergeProfile(existing:Profile|undefined,incoming:Profile|undefin
  if(!incoming)return existing;
  return Object.fromEntries(Object.entries(existing).map(([key,value])=>[key,value===null||value===''?incoming[key as keyof Profile]:value])) as Profile;
 }
+
+/** A damaged remote payload must remain inspectable without crashing React. */
+export function formatPayload(payload:string){
+ try{return JSON.stringify(JSON.parse(payload),null,2)}catch{return 'Ungültiges JSON · Rohtext:\n'+payload}
+}

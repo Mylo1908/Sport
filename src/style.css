@@ -87,3 +87,7 @@ summary:focus-visible{outline:2px solid #67efad;outline-offset:3px}
  .form-row>.field{flex-basis:180px}.analytics-filters .field{min-width:0;width:100%}
  .mobile-value input.long-number{font-size:20px!important}
 }
+
+/* Secondary labels must remain legible on a selected day and in the footer. */
+.days .selected span,.days .selected small{color:#d5e9d9}
+footer,footer span{color:#a4b7ad}
