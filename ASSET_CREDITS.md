@@ -1,8 +1,8 @@
-# Geräteillustrationen – Sport App 1.1
+# Geräteillustrationen – Sport App 1.4.1
 
 Alle folgenden SVGs sind **eigenständig für Sport App erstellt** von OpenAI Codex, nach dem Gerätebedarf des Trainingsplans. Keine übernommenen Stockgrafiken, Markenlogos oder Referenzbild-Ausschnitte. Das bereitgestellte Referenzbild wurde nur zur Orientierung für Farben, Linien und Perspektive betrachtet; seine Originalquelle ist unbekannt und wird nicht als eigene Quelle ausgegeben.
 
-Quelle jeder Zeichnung: diese Originaldatei im Repository `Mylo1908/Sport`. Die neu erstellten SVG-Dateien werden unter **CC0-1.0** bereitgestellt (https://creativecommons.org/publicdomain/zero/1.0/). Dies ist eine Freigabe der hier neu erstellten Illustrationen, keine Behauptung über die Lizenz des Referenzbildes. Ersteller: OpenAI Codex, eigenständige SVG-Konstruktion, 18.10.2026.
+Quelle jeder Zeichnung: diese Originaldatei im Repository `Mylo1908/Sport`. Die neu erstellten SVG-Dateien werden unter **CC0-1.0** bereitgestellt (https://creativecommons.org/publicdomain/zero/1.0/). Dies ist eine Freigabe der hier neu erstellten Illustrationen, keine Behauptung über die Lizenz des Referenzbildes. Ersteller: OpenAI Codex, eigenständige SVG-Konstruktion, 18.10.2026; konstruktiv überarbeitet am 20.10.2026.
 
 | Bild / Name | Ersteller | Tatsächliche Quelle / URL | Lizenz |
 |---|---|---|---|
@@ -21,3 +21,5 @@ Quelle jeder Zeichnung: diese Originaldatei im Repository `Mylo1908/Sport`. Die 
 ## Zuordnung
 
 `src/exercise-images.ts` enthält die vollständige Zuordnung aller 21 Übungs-IDs. Übungen am selben Gerät teilen dieselbe Maschinenzeichnung. Die Zeichnungen zeigen Gerätetypen, keine Anleitung zur Übungsausführung und keine exakten Herstellermodelle. Eigene Fotos haben Vorrang und bleiben ausschließlich im lokalen Speicher.
+
+Die konstruktive Überarbeitung aller elf Geräte ist im [Illustrationsaudit](docs/SPORT_ILLUSTRATION_AUDIT.md) dokumentiert. Herstellerquellen dienen ausschließlich der mechanischen Orientierung. Alle SVGs lassen sich mit `python3 scripts/draw-equipment.py` reproduzieren.

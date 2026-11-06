@@ -1,6 +1,6 @@
-# Sport 1.2 – Better Workout
+# Sport 1.4.1
 
-Kostenloser, lokaler Trainingsbegleiter mit React, TypeScript, Vite, IndexedDB und GitHub Pages. Website: https://mylo1908.github.io/Sport/
+Privater Trainingsbegleiter mit React, TypeScript, Vite, lokaler Speicherung in IndexedDB, privatem Firebase-Konto und GitHub Pages. Website: https://mylo1908.github.io/Sport/
 
 ## Bedienung
 
@@ -74,3 +74,7 @@ Echte iOS-/Android-Geräte sind in der Arbeitsumgebung nicht verfügbar; lokale 
 Firebase Spark und die Datenbank in Frankfurt sind eingerichtet. Nur die festgelegte Eigentümer-UID darf Cloud-Daten lesen und schreiben; Regeln sind veröffentlicht und mit Eigentümer-, fremder und anonymer Identität geprüft. Der Login ist aktiviert. Die konkrete Abnahme und verbleibende Geräteschritte stehen in [CLOUD_SETUP.md](CLOUD_SETUP.md). Bestehende lokale Originaldaten bleiben bei der bestätigten Übernahme erhalten.
 
 Validierung: `npm test` (44 Regressionstests), `npm run test:cloud` (Auth-/Firestore-Emulator, zwei Testfälle mit autorisiertem, fremdem und anonymem Zugriff), `npm run build`. Tests verwenden ausschließlich synthetische Daten. Java 21 ist für den CI-Emulator vorgesehen. Echte Zwei-Geräte-Synchronisierung und ein produktiver Login wurden noch nicht geprüft.
+
+## Qualitätsaudit
+
+[QA-Bericht](docs/SPORT_FULL_QA_AUDIT.md) · [Geräteillustrationen](docs/SPORT_ILLUSTRATION_AUDIT.md) · [Roadmap](docs/SPORT_ROADMAP.md)
