@@ -91,3 +91,12 @@ summary:focus-visible{outline:2px solid #67efad;outline-offset:3px}
 /* Secondary labels must remain legible on a selected day and in the footer. */
 .days .selected span,.days .selected small{color:#d5e9d9}
 footer,footer span{color:#a4b7ad}
+
+nav .nav-label-wide{display:inline;width:auto;font-size:inherit;vertical-align:baseline}
+nav .nav-label-mobile{display:none;width:auto;font-size:inherit}
+@media(max-width:760px){
+ nav .nav-label-wide{display:none}
+ nav .nav-label-mobile{display:block;white-space:nowrap}
+ .actions.sticky{flex-wrap:nowrap;gap:8px}
+ .actions.sticky>button{flex:1 1 0;min-width:0;padding:10px 8px;font-size:14px;line-height:1.25}
+}

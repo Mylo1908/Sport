@@ -7,7 +7,7 @@ test.beforeEach(({page})=>{const errors:string[]=[];pageErrors.set(page,errors);
 test.afterEach(({page})=>expect(pageErrors.get(page),'Uncaught browser errors').toEqual([]));
 
 // All data belongs to the separate synthetic build, never to the live account.
-const tab=(page:Page,name:string)=>page.getByRole('navigation').getByRole('button',{name,exact:true}).click();
+const tab=(page:Page,name:string)=>page.getByRole('navigation').getByRole('button',{name:name==='Einstellungen'?/Einstellungen/:name,exact:true}).click();
 async function boot(page:Page){await page.goto('./');await expect(page.getByRole('heading',{name:'Trainingsübersicht',exact:true})).toBeVisible()}
 async function start(page:Page){await tab(page,'Mein Training');await page.locator('.days').getByRole('button',{name:/Mo/}).click();await page.getByRole('button',{name:/^Training starten/}).click();await expect(page.locator('.mobile-workout-card')).toHaveCount(6)}
 async function saved(page:Page){await expect(page.locator('.save')).not.toContainText('Speichert');await expect(page.locator('.alert')).toHaveCount(0)}
@@ -41,7 +41,7 @@ test('Workout persists entered values, corrections, RIR, timer and offline resum
  await context.setOffline(true);await page.waitForFunction(()=>!navigator.onLine);await page.reload();await expect(page.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();
  await page.getByRole('button',{name:/^Fortsetzen/}).click();await expect(page.locator('.compact-set').first()).toContainText('52,5 kg × 9');await expect(page.locator('.rest-timer').getByRole('button',{name:'Fortsetzen',exact:true})).toBeVisible();
  await page.locator('.rest-timer').getByRole('button',{name:'Fortsetzen',exact:true}).click();await page.locator('.rest-timer').getByRole('button',{name:'Überspringen',exact:true}).click();
- await context.setOffline(false);await page.getByLabel('Trainingsnotizen',{exact:true}).fill('Synthetic QA note');await saved(page);await page.getByRole('button',{name:/Training beenden/}).click();await page.getByRole('button',{name:'Bestätigen & speichern',exact:true}).click();
+ await context.setOffline(false);await page.getByRole('textbox',{name:'Trainingsnotizen',exact:true}).fill('Synthetic QA note');await saved(page);await page.getByRole('button',{name:/Training beenden/}).click();await page.getByRole('button',{name:'Bestätigen & speichern',exact:true}).click();
  await expect(page.getByRole('status').filter({hasText:'Training gespeichert.'})).toBeVisible();
  const data=await backup(page);expect(data.sessions).toHaveLength(2);expect(data.draft).toBeNull();const latest=data.sessions.find((s:any)=>s.notes==='Synthetic QA note');expect(latest.sets[0]).toMatchObject({weightKg:52.5,reps:9,rir:2,status:'done'});
  await page.getByLabel('JSON-Datei auswählen').setInputFiles({name:'synthetic-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(data))});await page.getByRole('button',{name:'Import bestätigen',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'0 Trainingseinheiten importiert'})).toBeVisible();
@@ -79,8 +79,8 @@ test('Cloud status is immediate offline, conflicts require a choice and both ver
 test('One editing tab protects the draft; the other can resume after release',async({page,context})=>{
  await boot(page);await start(page);
  const second=await context.newPage();await second.goto('./');await expect(second.getByText(/bereits in einem anderen Tab/)).toBeVisible();await expect(second.locator('.mobile-workout-card')).toHaveCount(0);
- await page.getByLabel('Trainingsnotizen',{exact:true}).fill('Cross-tab synthetic draft');await saved(page);
- await page.close();await expect(second.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();await second.getByRole('button',{name:/^Fortsetzen/}).click();await expect(second.getByLabel('Trainingsnotizen',{exact:true})).toHaveValue('Cross-tab synthetic draft');
+ await page.getByRole('textbox',{name:'Trainingsnotizen',exact:true}).fill('Cross-tab synthetic draft');await saved(page);
+ await page.close();await expect(second.getByRole('heading',{name:'Training pausiert',exact:true})).toBeVisible();await second.getByRole('button',{name:/^Fortsetzen/}).click();await expect(second.getByRole('textbox',{name:'Trainingsnotizen',exact:true})).toHaveValue('Cross-tab synthetic draft');
 });
 
 test('Illustration preview, own-photo priority, deletion and all eleven SVGs load',async({page})=>{
